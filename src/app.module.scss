@@ -1,0 +1,28 @@
+.container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  &.isQtClient {
+    background: transparent;
+
+    .footer {
+      background: transparent;
+    }
+  }
+  .footer {
+    height: 50%;
+    // padding-bottom: 10px;
+    .loggerInner {
+      width: 100%;
+      height: 90%;
+      overflow: hidden;
+      overflow-y: auto;
+      padding: 10px;
+      border: 1px solid red;
+      border-radius: 6px;
+    }
+  }
+}

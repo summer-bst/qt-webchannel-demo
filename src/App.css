@@ -1,4 +1,45 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 .App {
   text-align: center;
+}
+/* body{
+  background: transparent;
+} */
+.brand {
+  color: #fff;
+  font-size: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.logger::after {
+  content: "";
+  height: 3px;
+  background-color: rgb(175, 30, 144);
+  border-radius: 3px;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.logger-request {
+  color: #40a9ff;
+}
+.logger-response {
+  color: #35bb57;
+}
+.logger-request h3,
+.logger-response h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+.logger-response h3{
+  color: #35bb57;
+}
+
+.logger-request pre,
+.logger-response pre {
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
