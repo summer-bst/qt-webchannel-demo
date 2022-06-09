@@ -53,3 +53,9 @@ interface IOpenBrowserData {
 interface IClientQueryData {
   query: string;
 }
+
+interface IInstalledAppsData {
+  action?: "install" | "uninstall" | "all";
+  apps?: Array<{ package_name: string }>;
+  package_name?: string;
+}

@@ -3,6 +3,7 @@ import UserInfo from "./userInfo/Index";
 import ClientConfig from "./clientConfig/Index";
 import Browser from "./browser/Index";
 import ClientSearch from "./clientSearch/Index";
+import AppManager from "./appManager/Index";
 
 const compMap = {
   openApp: OpenApp,
@@ -10,6 +11,7 @@ const compMap = {
   clientConfig: ClientConfig,
   browser: Browser,
   clientSearch: ClientSearch,
+  appManager: AppManager,
 };
 
 export default compMap;

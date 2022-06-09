@@ -1,6 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import { Button, Space, notification, Col, Row } from "antd";
+import {
+  Button,
+  Space,
+  notification,
+  Col,
+  Row,
+  Input,
+  Divider,
+  message,
+} from "antd";
 
 import style from "./index.module.scss";
 import { qwebApi, on, off, fetchQwebApi } from "../../tool/qwebApi";
@@ -8,6 +17,12 @@ import { qwebApi, on, off, fetchQwebApi } from "../../tool/qwebApi";
 const ClientConfig: React.FC = () => {
   const [api, contextHolder] = notification.useNotification();
   const [language, setLanguage] = useState({});
+  const [imgUrl, setImgUrl] = useState(
+    "https://cdn-bgp.bluestacks.com/bgp/fullhd/com.plarium.mechlegion.jpg"
+  );
+  const [videoUrl, setVideoUrl] = useState(
+    "https://cdn.now.gg/apps-content/com.innersloth.spacemafia/videos/desktop/among-us.mp4"
+  );
   const [clientConfig, setClientConfig] = useState({});
   const [pathLocation, setPathLocation] = useState({});
   const [hostConfig, setHostConfig] = useState({});
@@ -26,7 +41,7 @@ const ClientConfig: React.FC = () => {
   const _onClientHostConfig = useCallback(() => {
     const getHostConfig = async () => {
       const hostConfig = await fetchQwebApi({ event: "getHostConfig" });
-      setHostConfig(hostConfig);
+      setHostConfig(hostConfig || {});
     };
     getHostConfig();
   }, []);
@@ -34,7 +49,7 @@ const ClientConfig: React.FC = () => {
   const _onClientSystemConfig = useCallback(() => {
     const getHostConfig = async () => {
       const hostConfig = await fetchQwebApi({ event: "getClientConfig" });
-      setSystemConfig(hostConfig);
+      setSystemConfig(hostConfig || {});
     };
     getHostConfig();
   }, []);
@@ -58,6 +73,12 @@ const ClientConfig: React.FC = () => {
       document.body.style.background = "transparent";
     } else {
       document.body.style.background = "#fff";
+    }
+    if (data) {
+      if (!data.url && !data.video) {
+        message.error("Please input resource url.");
+        return;
+      }
     }
     qwebApi({
       event: "changeBannerBackgroundImage",
@@ -98,7 +119,7 @@ const ClientConfig: React.FC = () => {
           });
         }
       } catch (error) {
-        setLanguage({});
+        setClientConfig({});
       }
     },
     [api]
@@ -117,7 +138,7 @@ const ClientConfig: React.FC = () => {
           });
         }
       } catch (error) {
-        setLanguage({});
+        setPathLocation({});
       }
     },
     [api]
@@ -137,6 +158,64 @@ const ClientConfig: React.FC = () => {
   return (
     <div className={style.container}>
       {contextHolder}
+      <Space
+        direction="vertical"
+        style={{ width: "100%", marginBottom: "20px" }}
+      >
+        <Button type="primary" onClick={() => _onConfigBackground(null)}>
+          Close Config Background
+        </Button>
+        <Input.Group compact>
+          <Input
+            style={{ width: "calc(100% - 200px)" }}
+            allowClear={true}
+            addonBefore="Background Image Url"
+            defaultValue={imgUrl}
+            onChange={(e) => setImgUrl(e.target.value)}
+          />
+          <Button
+            type="primary"
+            onClick={() =>
+              _onConfigBackground({
+                url: imgUrl,
+              })
+            }
+          >
+            Config Image
+          </Button>
+        </Input.Group>
+        <Input.Group compact>
+          <Input
+            style={{ width: "calc(100% - 300px)" }}
+            allowClear={true}
+            addonBefore="Background Video Url"
+            defaultValue={videoUrl}
+            onChange={(e) => setVideoUrl(e.target.value)}
+          />
+          <Button
+            type="primary"
+            onClick={() =>
+              _onConfigBackground({
+                video: videoUrl,
+              })
+            }
+          >
+            Config Video
+          </Button>
+          <Divider type="vertical" />
+          <Button
+            type="primary"
+            onClick={() =>
+              _onConfigBackground({
+                video: videoUrl,
+                playCount: 1,
+              })
+            }
+          >
+            Config Video 1 count
+          </Button>
+        </Input.Group>
+      </Space>
       <Space wrap>
         {/* get language */}
         <Button type="primary" onClick={_onClientLanguage}>
@@ -163,45 +242,43 @@ const ClientConfig: React.FC = () => {
           Close boot loading
         </Button>
         {/* config background */}
-        <Button
+        {/* <Button
           type="primary"
           onClick={() =>
             _onConfigBackground({
-              url: "https://cdn-bgp.bluestacks.com/bgp/fullhd/com.plarium.mechlegion.jpg",
+              url: imgUrl,
             })
           }
         >
           Config Background Image
-        </Button>
+        </Button> */}
         {/* config background video */}
-        <Button
+        {/* <Button
           type="primary"
           onClick={() =>
             _onConfigBackground({
-              video:
-                "https://cdn.now.gg/apps-content/com.innersloth.spacemafia/videos/desktop/among-us.mp4",
+              video: videoUrl,
             })
           }
         >
           Config Background Video
-        </Button>
+        </Button> */}
         {/* config background video */}
-        <Button
+        {/* <Button
           type="primary"
           onClick={() =>
             _onConfigBackground({
-              video:
-                "https://cdn.now.gg/apps-content/com.innersloth.spacemafia/videos/desktop/among-us.mp4",
+              video: videoUrl,
               playCount: 1,
             })
           }
         >
           Config Background Video Play 1 count
-        </Button>
+        </Button> */}
         {/* close config background */}
-        <Button type="primary" onClick={() => _onConfigBackground(null)}>
+        {/* <Button type="primary" onClick={() => _onConfigBackground(null)}>
           Close Config Background
-        </Button>
+        </Button> */}
       </Space>
       <Row gutter={16}>
         <Col span={8}>

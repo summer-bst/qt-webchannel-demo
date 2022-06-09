@@ -23,7 +23,9 @@ const App: React.FC = () => {
         { [style.isQtClient]: isQtClient },
       ])}
     >
-      <Content style={{ height: "100%", overflow: "hidden", overflowY: "auto" }}>
+      <Content
+        style={{ height: "100%", overflow: "hidden", overflowY: "auto" }}
+      >
         <Tabs defaultActiveKey={firstTab.id}>
           {tabs.map((tab) => {
             const Comp = (tabCompMap as any)[tab.id] as React.FC;

@@ -13,7 +13,7 @@
     }
   }
   .footer {
-    height: 50%;
+    height: 30%;
     // padding-bottom: 10px;
     .loggerInner {
       width: 100%;
@@ -23,6 +23,7 @@
       padding: 10px;
       border: 1px solid red;
       border-radius: 6px;
+      max-height: 400px;
     }
   }
 }
