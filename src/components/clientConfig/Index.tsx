@@ -146,14 +146,15 @@ const ClientConfig: React.FC = () => {
   // 监听语言变化
   useEffect(() => {
     on("updateLanguage", onUpdateLanguage);
-    on("updateUserConfig", onUpdateClientConfig);
-    on("pageRouterTo", onRouterTo);
+    // on("updateUserConfig", onUpdateClientConfig);
+    // on("pageRouterTo", onRouterTo);
     return () => {
       off("updateLanguage", onUpdateLanguage);
-      off("updateUserConfig", onUpdateClientConfig);
-      off("pageRouterTo", onRouterTo);
+      // off("updateUserConfig", onUpdateClientConfig);
+      // off("pageRouterTo", onRouterTo);
     };
-  }, [onUpdateLanguage, onUpdateClientConfig, onRouterTo]);
+    // }, [onUpdateLanguage, onUpdateClientConfig, onRouterTo]);
+  }, [onUpdateLanguage]);
 
   return (
     <div className={style.container}>
@@ -222,25 +223,25 @@ const ClientConfig: React.FC = () => {
           Get Language
         </Button>
         {/* get user config */}
-        <Button type="primary" onClick={_onClientUserConfig}>
+        {/* <Button type="primary" onClick={_onClientUserConfig}>
           Get Client User Config
-        </Button>
+        </Button> */}
         {/* get client host config */}
-        <Button type="primary" onClick={_onClientHostConfig}>
+        {/* <Button type="primary" onClick={_onClientHostConfig}>
           Get Client Host Config
-        </Button>
+        </Button> */}
         {/* get client system config */}
-        <Button type="primary" onClick={_onClientSystemConfig}>
+        {/* <Button type="primary" onClick={_onClientSystemConfig}>
           Get Client System Config
-        </Button>
+        </Button> */}
         {/* loading */}
-        <Button type="primary" onClick={_onBeginLoading}>
+        {/* <Button type="primary" onClick={_onBeginLoading}>
           Begin loading 2S
-        </Button>
+        </Button> */}
         {/* close boot loading */}
-        <Button type="primary" onClick={_onCloseBootLoading}>
+        {/* <Button type="primary" onClick={_onCloseBootLoading}>
           Close boot loading
-        </Button>
+        </Button> */}
         {/* config background */}
         {/* <Button
           type="primary"
@@ -289,7 +290,7 @@ const ClientConfig: React.FC = () => {
               : "----"}
           </pre>
         </Col>
-        <Col span={8}>
+        {/* <Col span={8}>
           <h2>Client User Config</h2>
           <pre className={style.preText}>
             {Object.keys(clientConfig).length > 0
@@ -320,7 +321,7 @@ const ClientConfig: React.FC = () => {
               ? JSON.stringify(pathLocation, null, 4)
               : "----"}
           </pre>
-        </Col>
+        </Col> */}
       </Row>
     </div>
   );

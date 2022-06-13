@@ -79,7 +79,7 @@ const OpenApp: React.FC = () => {
           />
         </Space>
         {/* pc app */}
-        <Space>
+        {/* <Space>
           <Button
             type="primary"
             onClick={() => _onOpenApp("openStreamGame", "pcApp")}
@@ -90,7 +90,7 @@ const OpenApp: React.FC = () => {
             shape="circle"
             icon={<SlidersOutlined onClick={() => _onOpenAppConfig("pcApp")} />}
           />
-        </Space>
+        </Space> */}
       </Space>
       <Drawer
         onClose={() => setVisible(false)}

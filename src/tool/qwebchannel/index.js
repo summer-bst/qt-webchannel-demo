@@ -2,6 +2,8 @@ import EventEmitter from "eventemitter3";
 import { QWebChannel } from "./qwebchannel";
 import { assert, isQtClient, __DEV__ } from "./utils";
 
+export const EE = new EventEmitter();
+
 let qWebChannel = null;
 
 const conf = {
@@ -27,9 +29,11 @@ const loggerToLoConsole = (event, data, type = "request") => {
     loggerBoxDom.appendChild(eventDom);
     if (data) {
       const dataDom = document.createElement("pre");
-      dataDom.innerHTML = `====${event}====(${
-        type.toUpperCase()
-      }-Data):\n${JSON.stringify(data, null, 4)}\n`;
+      dataDom.innerHTML = `====${event}====(${type.toUpperCase()}-Data):\n${JSON.stringify(
+        data,
+        null,
+        4
+      )}\n`;
       loggerBoxDom.appendChild(dataDom);
     }
     loggerDom.appendChild(loggerBoxDom);
@@ -38,16 +42,8 @@ const loggerToLoConsole = (event, data, type = "request") => {
 };
 
 // 请求log
-const requestLog = (event, data, ga) => {
+const requestLog = (event, data) => {
   try {
-    if (ga && Object.keys(ga).length) {
-      console.info(
-        `%cRequest:qwebApi for <${event}>(Ga-Data):`,
-        "color:green;font-size:18px;",
-        "\n",
-        ga
-      );
-    }
     if (data) {
       console.info(
         `%cRequest:qwebApi for <${event}>(Req-Data):`,
@@ -67,26 +63,28 @@ const requestLog = (event, data, ga) => {
 
 // 相应log
 const responseLog = (response, isMock) => {
-  try {
-    const { event, data } = response;
-    console.info(
-      `%cResponse:qwebApi for <${event}>${isMock ? " [[MOCK-DATA]]" : ""}:`,
-      "color:green;font-size:18px;",
-      "\n",
-      data
-    );
-    loggerToLoConsole(event, data, "response");
-  } catch (error) {
-    console.error(
-      "%cqtContext.contentChanged(数据解析出错)",
-      "color:red;font-size:18px;",
-      "\n",
-      error
-    );
+  const { _events } = EE;
+  const eventKeys = Object.keys(_events);
+  const { event, data } = response;
+  if (eventKeys.includes(event)) {
+    try {
+      console.info(
+        `%cResponse:qwebApi for <${event}>${isMock ? " [[MOCK-DATA]]" : ""}:`,
+        "color:green;font-size:18px;",
+        "\n",
+        data
+      );
+      loggerToLoConsole(event, data, "response");
+    } catch (error) {
+      console.error(
+        "%cqtContext.contentChanged(数据解析出错)",
+        "color:red;font-size:18px;",
+        "\n",
+        error
+      );
+    }
   }
 };
-
-export const EE = new EventEmitter();
 // console.log(EE)
 export default function QWC() {
   return new Promise((resolve, reject) => {
@@ -152,17 +150,10 @@ export default function QWC() {
               data,
               page = PageType.Current,
               callbackEvent,
-              ga = {},
             }) => {
-              // const { path, module, ...extra } = ga
-              // const gaTemp = {
-              //   path: path || window.location.pathname,
-              //   module,
-              //   extra: JSON.stringify(extra),
-              // }
-              requestLog(event, data, ga);
+              requestLog(event, data);
               return qtContext.dataChanged(
-                JSON.stringify({ event, data, page, callbackEvent, ga })
+                JSON.stringify({ event, data, page, callbackEvent })
               );
             },
             fetchQtCallback: (
@@ -171,7 +162,6 @@ export default function QWC() {
                 data,
                 page = PageType.Current,
                 callbackEvent = `${event}_callback`,
-                ga,
               },
               config = {}
             ) => {
@@ -199,7 +189,6 @@ export default function QWC() {
                   data,
                   page,
                   callbackEvent,
-                  ga,
                 });
               });
             },

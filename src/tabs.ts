@@ -3,10 +3,10 @@ const tabs: ITabsItem[] = [
     title: "Open App",
     id: "openApp",
   },
-  {
-    title: "User Info",
-    id: "userInfo",
-  },
+  // {
+  //   title: "User Info",
+  //   id: "userInfo",
+  // },
   {
     title: "Client Config",
     id: "clientConfig",
@@ -15,14 +15,14 @@ const tabs: ITabsItem[] = [
     title: "Open Browser",
     id: "browser",
   },
-  {
-    title: "Client Search",
-    id: "clientSearch",
-  },
-  {
-    title: "App Manager",
-    id: "appManager",
-  },
+  // {
+  //   title: "Client Search",
+  //   id: "clientSearch",
+  // },
+  // {
+  //   title: "App Manager",
+  //   id: "appManager",
+  // },
 ];
 
 export default tabs;
