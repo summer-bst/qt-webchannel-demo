@@ -4,8 +4,6 @@ const cloudApp: ICloudApp = {
     "https://cloud.bluestacks.com/app/icon?pkg=com.je.supersus&use_cdn=true&w=300",
   game_name: "Super Sus",
   is_nowgg_login_required: true,
-  game_play_preference: ["cloud"],
-  cloud_supported: true,
   cloud_app_url:
     "https://now.gg/lp/pi-productions/9433/super-sus?utm_source=now.gg-partner&utm_medium=client&utm_campaign=BlueStacksX&source=launcher",
 };
@@ -15,14 +13,9 @@ const androidApp: IAndroidApp = {
   icon_url:
     "https://cloud.bluestacks.com/app/icon?pkg=com.plarium.raidlegends&use_cdn=true&w=300",
   game_name: "RAID: Shadow Legends",
-  is_nowgg_login_required: true,
-  game_play_preference: ["local"],
-  cloud_supported: false,
   action: "",
+  action_value: "",
   apk_url: "",
-  section: "",
-  cloud_app_url:
-    "https://now.gg/lp/plarium/6886/raid-legends?utm_source=now.gg-partner&utm_medium=client&utm_campaign=BlueStacksX&source=launcher",
 };
 
 const pcApp: IPcApp = {
