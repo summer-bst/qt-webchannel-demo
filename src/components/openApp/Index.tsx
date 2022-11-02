@@ -78,6 +78,21 @@ const OpenApp: React.FC = () => {
             }
           />
         </Space>
+        {/* android app,only packageName */}
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => _onOpenApp("installOrPlayApp", "androidAppPure")}
+          >
+            Open Android App(Only package name)
+          </Button>
+          <Button
+            shape="circle"
+            icon={
+              <SlidersOutlined onClick={() => _onOpenAppConfig("androidAppPure")} />
+            }
+          />
+        </Space>
         {/* pc app */}
         {/* <Space>
           <Button

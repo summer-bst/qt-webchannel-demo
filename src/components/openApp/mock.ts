@@ -32,6 +32,7 @@ const configData = {
   cloudApp: JSON.stringify(cloudApp, null, 4),
   androidApp: JSON.stringify(androidApp, null, 4),
   pcApp: JSON.stringify(pcApp, null, 4),
+  androidAppPure: JSON.stringify("com.plarium.raidlegends", null, 4),
 };
 
 export default configData;
