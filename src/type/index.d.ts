@@ -11,16 +11,17 @@ interface ICloudApp {
   game_name: string;
   cloud_app_url: string;
   is_nowgg_login_required?: boolean;
-  game_play_preference: array<"cloud" | "local">;
-  cloud_supported: boolean;
   ga?: any;
 }
 
 // android app
-interface IAndroidApp extends ICloudApp {
-  action?: string;
-  section?: string;
-  apk_url?: string;
+interface IAndroidApp {
+  package_name: string;
+  icon_url: string;
+  game_name: string;
+  action: string;
+  apk_url: string;
+  action_value: string;
 }
 
 // pc app
