@@ -7,10 +7,10 @@ const tabs: ITabsItem[] = [
   //   title: "User Info",
   //   id: "userInfo",
   // },
-  {
-    title: "Client Config",
-    id: "clientConfig",
-  },
+  // {
+  //   title: "Client Config",
+  //   id: "clientConfig",
+  // },
   {
     title: "Open Browser",
     id: "browser",

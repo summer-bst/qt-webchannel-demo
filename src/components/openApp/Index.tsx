@@ -49,7 +49,7 @@ const OpenApp: React.FC = () => {
     <div className={style.container}>
       <Space size={"middle"} wrap>
         {/* cloud app */}
-        <Space>
+        {/* <Space>
           <Button
             type="primary"
             onClick={() => _onOpenApp("openCloudGame", "cloudApp")}
@@ -62,9 +62,9 @@ const OpenApp: React.FC = () => {
               <SlidersOutlined onClick={() => _onOpenAppConfig("cloudApp")} />
             }
           />
-        </Space>
+        </Space> */}
         {/* android app */}
-        <Space>
+        {/* <Space>
           <Button
             type="primary"
             onClick={() => _onOpenApp("installOrPlayAppforVm", "androidApp")}
@@ -77,7 +77,7 @@ const OpenApp: React.FC = () => {
               <SlidersOutlined onClick={() => _onOpenAppConfig("androidApp")} />
             }
           />
-        </Space>
+        </Space> */}
         {/* android app,only packageName */}
         <Space>
           <Button
