@@ -10,10 +10,10 @@ import { isQtClient } from "./tool/qwebchannel/utils";
 import tabs from "./tabs";
 
 import tabCompMap from "./components";
-
+import {qwebApi} from './tool/qwebApi'
 const { Footer, Content } = Layout;
 const { TabPane } = Tabs;
-
+qwebApi({ event: "closeBootAnimation" });
 const App: React.FC = () => {
   const firstTab = tabs[0];
   return (
