@@ -219,9 +219,9 @@ const ClientConfig: React.FC = () => {
       </Space>
       <Space wrap>
         {/* get language */}
-        <Button type="primary" onClick={_onClientLanguage}>
+        {/* <Button type="primary" onClick={_onClientLanguage}>
           Get Language
-        </Button>
+        </Button> */}
         {/* get user config */}
         {/* <Button type="primary" onClick={_onClientUserConfig}>
           Get Client User Config
@@ -282,14 +282,14 @@ const ClientConfig: React.FC = () => {
         </Button> */}
       </Space>
       <Row gutter={16}>
-        <Col span={8}>
+        {/* <Col span={8}>
           <h2>Language</h2>
           <pre className={style.preText}>
             {Object.keys(language).length > 0
               ? JSON.stringify(language, null, 4)
               : "----"}
           </pre>
-        </Col>
+        </Col> */}
         {/* <Col span={8}>
           <h2>Client User Config</h2>
           <pre className={style.preText}>

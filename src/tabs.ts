@@ -12,6 +12,10 @@ const tabs: ITabsItem[] = [
   //   id: "clientConfig",
   // },
   {
+    title: "Background Config",
+    id: "clientConfig",
+  },
+  {
     title: "Open Browser",
     id: "browser",
   },
