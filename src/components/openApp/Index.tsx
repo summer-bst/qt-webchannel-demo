@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { SlidersOutlined } from "@ant-design/icons";
 
-import { Button, Space, Drawer, Form, Input } from "antd";
+import { Button, Space, Drawer, Form, Input, message } from "antd";
 
 import { useImmer } from "use-immer";
 import style from "./index.module.scss";
@@ -25,6 +25,17 @@ const OpenApp: React.FC = () => {
     },
     [config]
   );
+
+  const _onOpenPureApp = useCallback((value: string) => {
+    if (!value) {
+      message.warn("Please input package name.");
+      return;
+    }
+    qwebApi({
+      event: "installOrPlayApp",
+      data: value,
+    });
+  }, []);
 
   //   打开游戏配置
   const _onOpenAppConfig = useCallback((type: string) => {
@@ -80,7 +91,7 @@ const OpenApp: React.FC = () => {
         </Space>
         {/* android app,only packageName */}
         <Space>
-          <Button
+          {/* <Button
             type="primary"
             onClick={() => _onOpenApp("installOrPlayApp", "androidAppPure")}
           >
@@ -91,6 +102,15 @@ const OpenApp: React.FC = () => {
             icon={
               <SlidersOutlined onClick={() => _onOpenAppConfig("androidAppPure")} />
             }
+          /> */}
+          <Input.Search
+            style={{ width: 500 }}
+            placeholder="Input Package Name"
+            allowClear
+            enterButton="Open"
+            size="large"
+            defaultValue="com.wt.cryptornado.idle.rpg"
+            onSearch={_onOpenPureApp}
           />
         </Space>
         {/* pc app */}
