@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { SlidersOutlined } from "@ant-design/icons";
 
-import { Button, Space, Drawer, Form, Input } from "antd";
+import { Button, Space, Drawer, Form, Input, message } from "antd";
 
 import { useImmer } from "use-immer";
 import style from "./index.module.scss";
@@ -44,6 +44,22 @@ const OpenApp: React.FC = () => {
     },
     [updateConfig]
   );
+  const _onOpenPureApp = useCallback((value: string) => {
+    // updateConfig((draft) => {
+    //   draft.androidAppPure = JSON.stringify(value, null, 4);
+    // });
+    // setTimeout(()=>{
+    //   _onOpenApp("installOrPlayApp", "androidAppPure");
+    // },100)
+    if (!value) {
+      message.warn("Please input package name.");
+      return;
+    }
+    qwebApi({
+      event: "installOrPlayApp",
+      data: value,
+    });
+  }, []);
 
   return (
     <div className={style.container}>
@@ -80,7 +96,7 @@ const OpenApp: React.FC = () => {
         </Space> */}
         {/* android app,only packageName */}
         <Space>
-          <Button
+          {/* <Button
             type="primary"
             onClick={() => _onOpenApp("installOrPlayApp", "androidAppPure")}
           >
@@ -91,6 +107,15 @@ const OpenApp: React.FC = () => {
             icon={
               <SlidersOutlined onClick={() => _onOpenAppConfig("androidAppPure")} />
             }
+          /> */}
+          <Input.Search
+            style={{ width: 500 }}
+            placeholder="Input Package Name"
+            allowClear
+            enterButton="Open"
+            size="large"
+            defaultValue="com.wt.cryptornado.idle.rpg"
+            onSearch={_onOpenPureApp}
           />
         </Space>
         {/* pc app */}
