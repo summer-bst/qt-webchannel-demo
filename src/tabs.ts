@@ -23,10 +23,10 @@ const tabs: ITabsItem[] = [
   //   title: "Client Search",
   //   id: "clientSearch",
   // },
-  // {
-  //   title: "App Manager",
-  //   id: "appManager",
-  // },
+  {
+    title: "App Manager",
+    id: "appManager",
+  },
 ];
 
 export default tabs;
