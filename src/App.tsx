@@ -10,6 +10,8 @@ import { isQtClient } from "./tool/qwebchannel/utils";
 import tabs from "./tabs";
 
 import tabCompMap from "./components";
+import Header from "./components/header/Index";
+
 import {qwebApi} from './tool/qwebApi'
 const { Footer, Content } = Layout;
 const { TabPane } = Tabs;
@@ -26,6 +28,7 @@ const App: React.FC = () => {
       <Content
         style={{ height: "100%", overflow: "hidden", overflowY: "auto" }}
       >
+        <Header/>
         <Tabs defaultActiveKey={firstTab.id}>
           {tabs.map((tab) => {
             const Comp = (tabCompMap as any)[tab.id] as React.FC;
