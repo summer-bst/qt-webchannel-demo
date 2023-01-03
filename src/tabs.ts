@@ -11,10 +11,10 @@ const tabs: ITabsItem[] = [
   //   title: "Client Config",
   //   id: "clientConfig",
   // },
-  {
-    title: "Background Config",
-    id: "clientConfig",
-  },
+  // {
+  //   title: "Background Config",
+  //   id: "clientConfig",
+  // },
   {
     title: "Open Browser",
     id: "browser",
