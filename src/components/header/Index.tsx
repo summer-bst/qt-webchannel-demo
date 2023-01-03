@@ -12,13 +12,13 @@ const Header: React.FC = () => {
     // restoreWindow 恢复窗口大小
 
     const _onMinWindow = useCallback(() => {
-        qwebApi({ event: "miniWindow" });
+        qwebApi({ event: "minimizeWindow" });
     }, []);
     const _onRestoreWindow = useCallback(() => {
         qwebApi({ event: "restoreWindow" });
     }, []);
     const _onMaxWindow = useCallback(() => {
-        qwebApi({ event: "maxWindow" });
+        qwebApi({ event: "maximizeWindow" });
     }, []);
     const _onCloseWindow = useCallback(() => {
         qwebApi({ event: "closeWindow" });
