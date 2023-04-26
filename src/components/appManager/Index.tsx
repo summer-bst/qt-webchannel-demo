@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import { Button, Space, notification } from "antd";
+import { Button, Input, Space, notification } from "antd";
 
 import style from "./index.module.scss";
 import { qwebApi, on, off } from "../../tool/qwebApi";
@@ -8,6 +8,9 @@ import { qwebApi, on, off } from "../../tool/qwebApi";
 const AppManager: React.FC = () => {
   const [api, contextHolder] = notification.useNotification();
   const [installedApps, setInstalledApps] = useState<Array<string>>([]);
+
+  const [width, setWidth] = useState<number>(900);
+  const [height, setHeight] = useState<number>(600);
   // 获取已安装apps
   const _onInstalledApps = useCallback(() => {
     qwebApi({
@@ -58,6 +61,16 @@ const AppManager: React.FC = () => {
     };
   }, [onUpdateInstalledApps]);
 
+  const _settingSize = () => {
+    qwebApi({
+      event: "setWindowSize",
+      data: {
+        width,
+        height,
+      },
+    });
+  };
+
   return (
     <div className={style.container}>
       {contextHolder}
@@ -67,6 +80,25 @@ const AppManager: React.FC = () => {
           Get Installed apps
         </Button>
       </Space>
+      <div style={{marginTop:'20px'}}>
+      <Space>
+        <Input
+          allowClear={true}
+          addonBefore="Width"
+          defaultValue={900}
+          onChange={(e) => setWidth(parseInt(e.target.value))}
+        />
+        <Input
+          allowClear={true}
+          addonBefore="Height"
+          defaultValue={600}
+          onChange={(e) => setHeight(parseInt(e.target.value))}
+        />
+        <Button type="primary" onClick={_settingSize}>
+          Setting Size
+        </Button>
+      </Space>
+      </div>
       <pre className={style.preText}>
         {installedApps.length > 0
           ? JSON.stringify(installedApps, null, 4)
