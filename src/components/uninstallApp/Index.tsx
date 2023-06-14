@@ -57,7 +57,7 @@ const OpenApp: React.FC = () => {
             style={{ width: 500 }}
             placeholder="Input Package Name"
             allowClear
-            enterButton="Open"
+            enterButton="uninstall"
             size="large"
             defaultValue="com.wt.cryptornado.idle.rpg"
             onSearch={_onUninstallPureApp}
