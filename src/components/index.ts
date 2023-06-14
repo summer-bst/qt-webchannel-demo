@@ -4,6 +4,7 @@ import ClientConfig from "./clientConfig/Index";
 import Browser from "./browser/Index";
 import ClientSearch from "./clientSearch/Index";
 import AppManager from "./appManager/Index";
+import UninstallApp from "./uninstallApp/Index";
 
 const compMap = {
   openApp: OpenApp,
@@ -12,6 +13,7 @@ const compMap = {
   browser: Browser,
   clientSearch: ClientSearch,
   appManager: AppManager,
+  uninstallApp: UninstallApp,
 };
 
 export default compMap;

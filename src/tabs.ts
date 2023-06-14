@@ -3,6 +3,10 @@ const tabs: ITabsItem[] = [
     title: "Open App",
     id: "openApp",
   },
+  {
+    title: "Uninstall App",
+    id: "uninstallApp",
+  },
   // {
   //   title: "User Info",
   //   id: "userInfo",
