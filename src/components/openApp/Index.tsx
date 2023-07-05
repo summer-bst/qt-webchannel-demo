@@ -1,176 +1,94 @@
-import React, { useCallback, useState } from "react";
-import { SlidersOutlined } from "@ant-design/icons";
+import React, { useCallback } from "react";
 
-import { Button, Space, Drawer, Form, Input, message } from "antd";
+import { Button, Form, Input, Space, message } from "antd";
 
-import { useImmer } from "use-immer";
 import style from "./index.module.scss";
 import { qwebApi } from "../../tool/qwebApi";
-import mockData from "./mock";
+
+type configData = {
+  installConfig: string;
+};
+const installConfigData: configData = {
+  installConfig: JSON.stringify(
+    {
+      action_value: "",
+      apk_url:
+        "https://cdn3.bluestacks.com/bluestacks-app-store/Internal/com.wt.cryptornado.idle.rpg/DevProvidedApk/1.8/com.wt.cryptornado.idle.rpg.apk",
+      package_name: "com.wt.cryptornado.idle.rpg",
+      icon_url:
+        "https://cloud.bluestacks.com/app/icon?pkg=com.wt.cryptornado.idle.rpg&w=250&use_cdn=true",
+      game_name: "CrypTornado for WEMIX",
+      action: "InstallCDN",
+    },
+    null,
+    4
+  ),
+};
 
 const OpenApp: React.FC = () => {
-  const [visible, setVisible] = useState(false);
-
-  const [configType, setConfigType] = useState("cloudApp");
-
-  const [config, updateConfig] = useImmer<{ [x: string]: any }>(mockData);
-
-  //   打开游戏
-  const _onOpenApp = useCallback(
-    (event: string, type: string) => {
-      qwebApi({
-        event,
-        data: JSON.parse(config[type]),
-      });
-    },
-    [config]
-  );
-
-  //   打开游戏配置
-  const _onOpenAppConfig = useCallback((type: string) => {
-    setConfigType(type);
-    setVisible(true);
-  }, []);
-
-  const _onSubmitSuccess = useCallback(
-    (data: any) => {
-      console.log(data);
-      updateConfig((draft) => {
-        Object.keys(data).forEach((key) => {
-          draft[key] = data[key];
-        });
-      });
-      setVisible(false);
-    },
-    [updateConfig]
-  );
-  const _onOpenPureApp = useCallback((value: string) => {
-    // updateConfig((draft) => {
-    //   draft.androidAppPure = JSON.stringify(value, null, 4);
-    // });
-    // setTimeout(()=>{
-    //   _onOpenApp("installOrPlayApp", "androidAppPure");
-    // },100)
-    if (!value) {
-      message.warn("Please input package name.");
+  const [form] = Form.useForm();
+  const _onOpenPureApp = useCallback((value: configData) => {
+    if (!value.installConfig) {
+      message.warn("Please input package config.");
       return;
     }
     qwebApi({
       event: "installOrPlayApp",
-      data: value,
+      data: value.installConfig,
     });
   }, []);
 
+  const onFormat = () => {
+    console.log(form.getFieldsValue());
+    const values = form.getFieldsValue();
+    values.installConfig = JSON.stringify(
+      JSON.parse(values.installConfig),
+      null,
+      4
+    );
+    form.setFieldsValue(values);
+  };
+
   return (
     <div className={style.container}>
-      <Space size={"middle"} wrap>
-        {/* cloud app */}
-        {/* <Space>
-          <Button
-            type="primary"
-            onClick={() => _onOpenApp("openCloudGame", "cloudApp")}
-          >
-            Open Cloud App
-          </Button>
-          <Button
-            shape="circle"
-            icon={
-              <SlidersOutlined onClick={() => _onOpenAppConfig("cloudApp")} />
-            }
-          />
-        </Space> */}
-        {/* android app */}
-        {/* <Space>
-          <Button
-            type="primary"
-            onClick={() => _onOpenApp("installOrPlayAppforVm", "androidApp")}
-          >
-            Open Android App
-          </Button>
-          <Button
-            shape="circle"
-            icon={
-              <SlidersOutlined onClick={() => _onOpenAppConfig("androidApp")} />
-            }
-          />
-        </Space> */}
-        {/* android app,only packageName */}
-        <Space>
-          {/* <Button
-            type="primary"
-            onClick={() => _onOpenApp("installOrPlayApp", "androidAppPure")}
-          >
-            Open Android App(Only package name)
-          </Button>
-          <Button
-            shape="circle"
-            icon={
-              <SlidersOutlined onClick={() => _onOpenAppConfig("androidAppPure")} />
-            }
-          /> */}
-          <Input.Search
-            style={{ width: 500 }}
-            placeholder="Input Package Name"
-            allowClear
-            enterButton="Open"
-            size="large"
-            defaultValue="com.wt.cryptornado.idle.rpg"
-            onSearch={_onOpenPureApp}
-          />
-        </Space>
-        {/* pc app */}
-        {/* <Space>
-          <Button
-            type="primary"
-            onClick={() => _onOpenApp("openStreamGame", "pcApp")}
-          >
-            Open Pc App
-          </Button>
-          <Button
-            shape="circle"
-            icon={<SlidersOutlined onClick={() => _onOpenAppConfig("pcApp")} />}
-          />
-        </Space> */}
-      </Space>
-      <Drawer
-        onClose={() => setVisible(false)}
-        title="Config Panel"
-        width={520}
-        visible={visible}
+      <Form
+        // layout="vertical"
+        initialValues={installConfigData}
+        onFinish={_onOpenPureApp}
+        autoComplete="off"
+        form={form}
       >
-        <Form
-          layout="vertical"
-          initialValues={config}
-          onFinish={_onSubmitSuccess}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="Config"
-            name={configType}
-            rules={[
-              { required: true, message: "Please input your config data!" },
-              {
-                validator: (r, v) => {
-                  try {
-                    JSON.parse(v);
-                    return Promise.resolve();
-                  } catch (error) {
-                    return Promise.reject();
-                  }
-                },
-                message: "JSON data parsing error,please check the config.",
+        <Form.Item
+          label="Config"
+          name="installConfig"
+          rules={[
+            { required: true, message: "Please input your config data!" },
+            {
+              validator: (r, v) => {
+                try {
+                  JSON.parse(v);
+                  return Promise.resolve();
+                } catch (error) {
+                  return Promise.reject();
+                }
               },
-            ]}
-          >
-            <Input.TextArea rows={20} />
-          </Form.Item>
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+              message: "JSON data parsing error,please check the config.",
+            },
+          ]}
+        >
+          <Input.TextArea rows={15} />
+        </Form.Item>
+        <Form.Item wrapperCol={{ offset: 1, span: 16 }}>
+          <Space>
             <Button type="primary" htmlType="submit">
-              Submit
+              Install
             </Button>
-          </Form.Item>
-        </Form>
-      </Drawer>
+            <Button type="default" onClick={onFormat}>
+              Format
+            </Button>
+          </Space>
+        </Form.Item>
+      </Form>
     </div>
   );
 };
