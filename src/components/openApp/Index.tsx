@@ -14,10 +14,10 @@ const installConfigData: configData = {
       action_value: "",
       apk_url:
         "https://cdn3.bluestacks.com/bluestacks-app-store/Internal/com.wt.cryptornado.idle.rpg/DevProvidedApk/1.8/com.wt.cryptornado.idle.rpg.apk",
-      package_name: "com.wt.cryptornado.idle.rpg",
+      package: "com.wt.cryptornado.idle.rpg",
       icon_url:
         "https://cloud.bluestacks.com/app/icon?pkg=com.wt.cryptornado.idle.rpg&w=250&use_cdn=true",
-      game_name: "CrypTornado for WEMIX",
+      app_name: "CrypTornado for WEMIX",
       action: "InstallCDN",
     },
     null,
@@ -34,7 +34,7 @@ const OpenApp: React.FC = () => {
     }
     qwebApi({
       event: "installOrPlayApp",
-      data: value.installConfig,
+      data: JSON.parse(value.installConfig),
     });
   }, []);
 
